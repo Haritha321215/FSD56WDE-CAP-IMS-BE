@@ -1,23 +1,31 @@
-// import the mongoose module 
+// import the mongoose module
 const mongoose = require('mongoose');
 
-// import the config file
-const config = require("./utils/config")
+// import the config module
+const config = require('./utils/config');
 
-// console.log the message Connecting to MongoDB 
-console.log('Connecting to MongoDB');
+// import the app module
+const app = require('./app');
 
-// create the database
+// console.log the message Connecting to MongoDB
+console.log('Connecting to MongoDB...');
+
+// connect to the database
 mongoose.connect(config.MONGODB_URI)
     .then(() => {
         console.log('Connected to MongoDB');
 
         // start the server
         // listen to the port
-        // app.listen(config.PORT, () => {
-        //     console.log(`Server running on port ${config.PORT}`);
-        // });
+        // we can do it outside of the database connection
+        app.listen(config.PORT, () => {
+            console.log(`Server running on port ${config.PORT}`);
+        });
     })
     .catch((error) => {
         console.log('Error connecting to MongoDB:', error.message);
     });
+
+    // app.listen(config.PORT, () => {
+    //     console.log(`Server running on port ${config.PORT}`);
+    // });
