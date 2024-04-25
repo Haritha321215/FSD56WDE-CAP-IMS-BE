@@ -1,0 +1,19 @@
+{
+  "name": "ims-be",
+  "version": "1.0.0",
+  "description": "Backend application with nodejs + expressjs + mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Haritha321215/FSD56WDE-CAP-IMS-BE.git"
+  },
+  "author": "Haritha G",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Haritha321215/FSD56WDE-CAP-IMS-BE/issues"
+  },
+  "homepage": "https://github.com/Haritha321215/FSD56WDE-CAP-IMS-BE#readme"
+}
