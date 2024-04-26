@@ -7,6 +7,7 @@ const userController = require("../controllers/userController");
 
 //POST/api/users/register : Register a new user
 userRouter.post("/register", userController.register);
+userRouter.post("/login", userController.login);
 
 //export the router
 module.exports = userRouter;
