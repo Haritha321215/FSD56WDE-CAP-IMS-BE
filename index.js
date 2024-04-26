@@ -13,11 +13,12 @@ console.log('Connecting to MongoDB...');
 // connect to the database
 mongoose.connect(config.MONGODB_URI)
     .then(() => {
-        console.log('Connected to MongoDB');
+        console.log('Connected to MongoDB...');
 
         // start the server
         // listen to the port
         // we can do it outside of the database connection
+        // but we want the server should run after establishing the connection to mongodb successfully
         app.listen(config.PORT, () => {
             console.log(`Server running on port ${config.PORT}`);
         });
