@@ -105,7 +105,85 @@ const userController = {
       });
 
       // return token
-      response.json({message: 'login successful', token});
+      response.json({ message: "login successful", token });
+    } catch (error) {
+      response.status(500).json({ message: error.message });
+    }
+  },
+  getUser: async (request, response) => {
+    try {
+      // get the user id  from the request object
+      const userId = request.userId;
+      // find the user by id from the database
+      const user = await User.findById(userId).select(
+        "-passwordHash -__v -_id"
+      );
+
+      // if the user does nt exist, return an error
+      if (!user) {
+        return response.status(400).json({ message: "User not found" });
+      }
+      //if the user found
+      response.json({ message: "user found", user });
+    } catch (error) {
+      response.status(500).json({ message: error.message });
+    }
+  },
+  updateUser: async (request, response) => {
+    try {
+      // get the user id  from the request object
+      const userId = request.userId;
+      // get user inputs from the requestbody
+      const { name, location } = request.body;
+
+      // find the user by id from the database
+      const user = await User.findById(userId);
+
+      // if the user does not exist, return an error
+      if (!user) {
+        return response.status(400).json({ message: "User not found" });
+      }
+
+      // update the user if the user exists
+      if (name) user.name = name;
+      if (location) user.location = location;
+
+      //save the updated user to the database
+      const updatedUser = await user.save();
+
+      //return the updated user to front end
+      response.json({ message: "user updated", user: updatedUser });
+    } catch (error) {
+      response.status(500).json({ message: error.message });
+    }
+  },
+  deleteUser: async (request, response) => {
+    try {
+      // get the user id  from the request object
+      const userId = request.userId;
+
+      // find the user by id from the database
+      const user = await User.findById(userId);
+      if (!user) {
+        return response.status(400).json({ message: "User not found" });
+      }
+
+      //if the user found, then delete the user
+      await user.deleteOne();
+
+      //return a suscess message
+      response.json({ message: "user has been deleted" });
+    } catch (error) {
+      response.status(500).json({ message: error.message });
+    }
+  },
+  logout: async (request, response) => {
+    try {
+      // clear the token cookie
+      response.clearCookie("token");
+
+      // return success message
+      response.json({ message: "Logout susccessful" });
     } catch (error) {
       response.status(500).json({ message: error.message });
     }
