@@ -13,6 +13,9 @@ const morgan = require('morgan')
 //import user router
 const userRouter = require("./routes/userRoutes");
 
+//import product router
+const productRouter = require("./routes/productRoutes");
+
 // create an express application
 const app = express();
 
@@ -24,7 +27,7 @@ const app = express();
 //enable all cors requests
 app.use(
   cors({
-    origin: "*", // allow all origins
+    origin: "http://localhost:5173", // allow all origins
     credentials: true,
   })
 );
@@ -40,6 +43,7 @@ app.use(express.json());
 
 //define the end points
 app.use("/api/users", userRouter);
+app.use("/api/products", productRouter)
 
 // export the app module
 module.exports = app;
